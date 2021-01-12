@@ -1,4 +1,4 @@
-resource "aws_instance" "compose" {
+resource "aws_instance" "ec2" {
   ami                         = data.aws_ami.amzn.id
   instance_type               = var.ec2_instance_type
   key_name                    = var.ec2_keyname
@@ -24,4 +24,25 @@ resource "aws_instance" "compose" {
   lifecycle {
     ignore_changes = [ami]
   }
+}
+
+data "aws_ami" "amzn" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+
+  owners = ["137112412989"] # Amazon
 }
