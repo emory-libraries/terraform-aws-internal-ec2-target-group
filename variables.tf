@@ -9,6 +9,7 @@ variable "application_fqdn" {
     Note that the template will also create another domain name for streaming that is streaming.{application_fqdn}.
     EOF
 }
+
 variable "application_fqdn_workspace_insertion_index" {
   type = number
   default = 0
@@ -17,6 +18,44 @@ variable "application_fqdn_workspace_insertion_index" {
     For example if the application fqdn is 'avr.emory.edu', this variable is set to 0, and the workspace is test, the output will be avr-test.emory.edu.
     If the workspace is 'prod' then nothing is appended to the fqdn and the address on the alb would be 'avr.emory.edu'. 
     EOF
+}
+
+variable "ec2_instance_type" {
+    default = "t3.micro"
+    description = "Instance type or size"
+}
+
+variable "ec2_keyname" {
+    description = "The name of the key in AWS that the ec2 will use for SSH login"
+  
+}
+
+variable "ec2_common_name" {
+    description = <<EOF
+      Name the ec2 will be referred to, not the Name tag.
+      Examples include "web", "redis", etc.
+      EOF
+}
+
+variable "ec2_volume_size" {
+  type = number
+  default = 150
+  description = "The root volume size of the ec2"
+}
+
+variable "subnet_id" {
+    description = "Subnet id for the EC2"
+  
+}
+
+variable "vpc_cidr_block" {
+    description = "Cidr block for VPC ingress" 
+}
+
+variable "ssh_cidr_blocks" {
+  type = list(string)
+  default = ["0.0.0.0/0"]
+  description = "List of cidr blocks the compose ec2 will allow SSH access from, defaults to the entire internet" 
 }
 
 variable "tags" {
