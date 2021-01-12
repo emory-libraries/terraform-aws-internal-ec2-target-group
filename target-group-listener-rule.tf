@@ -22,7 +22,7 @@ resource "aws_alb_target_group" "target_group" {
 
 # Web listener rule and target group
 resource "aws_lb_listener_rule" "alb_web_listener_rule" {
-  listener_arn = aws_alb_listener.alb_listener.arn
+  listener_arn = var.alb_listener_arn
   priority     = 99
 
   action {
