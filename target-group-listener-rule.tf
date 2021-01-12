@@ -1,5 +1,5 @@
 resource "aws_alb_target_group" "target_group" {
-  name     = "${local.namespace}-alb-web"
+  name     = "${local.namespace}-alb-${var.ec2_common_name}"
   port     = "80"
   protocol = "HTTP"
   vpc_id   = var.vpc_id

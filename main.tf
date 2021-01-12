@@ -17,8 +17,8 @@ resource "aws_instance" "compose" {
   }
 
   vpc_security_group_ids = [
-    aws_security_group.compose.id,
-    aws_security_group.db_client.id,
+    aws_security_group.ec2_sg.id,
+    #aws_security_group.db_client.id,
   ]
 
   lifecycle {

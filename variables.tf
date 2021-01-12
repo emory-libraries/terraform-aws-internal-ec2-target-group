@@ -27,7 +27,6 @@ variable "ec2_instance_type" {
 
 variable "ec2_keyname" {
     description = "The name of the key in AWS that the ec2 will use for SSH login"
-  
 }
 
 variable "ec2_common_name" {
@@ -49,13 +48,13 @@ variable "subnet_id" {
 }
 
 variable "vpc_cidr_block" {
-    description = "Cidr block for VPC ingress" 
+    description = "Cidr block for VPC ingress"
 }
 
 variable "ssh_cidr_blocks" {
   type = list(string)
   default = ["0.0.0.0/0"]
-  description = "List of cidr blocks the compose ec2 will allow SSH access from, defaults to the entire internet" 
+  description = "List of cidr blocks the compose ec2 will allow SSH access from, defaults to the entire internet"
 }
 
 variable "tags" {
