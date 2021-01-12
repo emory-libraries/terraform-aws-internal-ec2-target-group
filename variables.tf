@@ -57,6 +57,11 @@ variable "ssh_cidr_blocks" {
   description = "List of cidr blocks the compose ec2 will allow SSH access from, defaults to the entire internet"
 }
 
+variable "stack_name" {
+  default = "stack"
+  description = "Name of the stack, helps delinate between different projects."
+}
+
 variable "tags" {
   type    = map(string)
   default = {}
