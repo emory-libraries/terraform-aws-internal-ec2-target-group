@@ -62,3 +62,8 @@ variable "tags" {
   default = {}
   description = "Map of tags, will be added to the common tags local"
 }
+
+variable "vpc_id" {
+  type = string
+  description = "VPC that will be used by terraform, this VPC is called via data only, terraform will not attempt to manage the existence of the VPC"
+}
