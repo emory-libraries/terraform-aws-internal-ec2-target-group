@@ -10,4 +10,5 @@ locals {
       "Environment" = local.namespace
       "Project"     = "Infrastructure"
     },
+    )
 }
