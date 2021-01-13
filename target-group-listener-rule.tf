@@ -38,7 +38,7 @@ resource "aws_lb_listener_rule" "alb_web_listener_rule" {
 }
 
 resource "aws_alb_target_group_attachment" "alb_ec2" {
-  target_group_arn = aws_alb_target_group.alb_web.arn
+  target_group_arn = aws_alb_target_group.target_group.arn
   target_id        = aws_instance.ec2.id
   port             = 80
 }
