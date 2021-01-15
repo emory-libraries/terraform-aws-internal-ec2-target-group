@@ -16,7 +16,7 @@ resource "aws_instance" "ec2" {
     volume_type = "standard"
   }
 
-  vpc_security_group_ids = merge(aws_security_group.ec2_sg.id, var.additional_security_group_ids)
+  vpc_security_group_ids = concat(aws_security_group.ec2_sg.id, var.additional_security_group_ids)
 
   lifecycle {
     ignore_changes = [ami]
