@@ -1,3 +1,8 @@
+variable "additional_security_group_ids" {
+    default = []
+    description = "List of security group ids that will be attached to the EC2."
+}
+
 variable "alb_listener_arn" {
     description = "The listener arn of the ALB this EC2's target group will be attached to. aws_alb_listener.alb_listener.arn"
 }
