@@ -4,7 +4,18 @@ variable "additional_security_group_ids" {
 }
 
 variable "alb_listener_arn" {
-    description = "The listener arn of the ALB this EC2's target group will be attached to. aws_alb_listener.alb_listener.arn"
+    type = string
+    description = "The listener arn of the ALB this EC2's target group will be attached to."
+}
+
+variable "ami_name_filter" {
+  default = "amzn2-ami-hvm-*"
+  description = "Name filter to search for AMIs, the latest AMI will be chosen. Default is Amazon Linux 2, if RHEL7 is desired use 'RHEL-7.?*GA*' , ignored if ec2_ami_id is selected"
+}
+
+variable "ami_owner_id" {
+  default = "137112412989"
+  description = "Owner ID for AMI search, default owner id is Amazon, for RedHat use '309956199498' , ignored if ec2_ami_id is selected"
 }
 
 variable "application_fqdn" {
@@ -16,7 +27,6 @@ variable "application_fqdn" {
 }
 
 variable "application_fqdn_workspace_insertion_index" {
-  type = number
   default = 0
   description = <<EOF
     The application fqdn is split into a list at each '.', this variable is the index (first object is 0) where the workspace will be appended.
@@ -25,16 +35,24 @@ variable "application_fqdn_workspace_insertion_index" {
     EOF
 }
 
+variable "ec2_ami_id" {
+  default = null
+  type = string
+  description = "AMI that EC2 will be created from, if this optional variable is set, the variables ami_name_filter and ami_owner_id will be ignored"
+}
+
 variable "ec2_instance_type" {
     default = "t3.micro"
     description = "Instance type or size"
 }
 
 variable "ec2_keyname" {
+    type = string
     description = "The name of the key in AWS that the ec2 will use for SSH login"
 }
 
 variable "ec2_common_name" {
+    type = string
     description = <<EOF
       Name the ec2 will be referred to, not the Name tag.
       Examples include "web", "redis", etc.
@@ -48,23 +66,24 @@ variable "ec2_volume_size" {
 }
 
 variable "subnet_id" {
+    type = string
     description = "Subnet id for the EC2"
-  
 }
 
 variable "vpc_cidr_block" {
+    type = string
     description = "Cidr block for VPC ingress"
 }
 
 variable "ssh_cidr_blocks" {
   type = list(string)
   default = ["0.0.0.0/0"]
-  description = "List of cidr blocks the compose ec2 will allow SSH access from, defaults to the entire internet"
+  description = "List of cidr blocks the ec2 will allow SSH access from, defaults to the entire internet"
 }
 
 variable "stack_name" {
   default = "stack"
-  description = "Name of the stack, helps delinate between different projects."
+  description = "Name of the stack, helps delineate between different projects."
 }
 
 variable "tags" {
