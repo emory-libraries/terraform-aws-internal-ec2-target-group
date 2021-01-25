@@ -1,5 +1,5 @@
 resource "aws_instance" "ec2" {
-  ami                         = data.aws_ami.amzn.id
+  ami                         = var.ec2_ami_id != null ? var.ec2_ami_id : data.aws_ami.amzn.id
   instance_type               = var.ec2_instance_type
   key_name                    = var.ec2_keyname
   subnet_id                   = var.subnet_id
@@ -18,9 +18,9 @@ resource "aws_instance" "ec2" {
 
   vpc_security_group_ids = concat([aws_security_group.ec2_sg.id], var.additional_security_group_ids)
 
-  lifecycle {
-    ignore_changes = [ami]
-  }
+    lifecycle {
+     ignore_changes = [ami]
+    }
 }
 
 data "aws_ami" "amzn" {
@@ -28,7 +28,7 @@ data "aws_ami" "amzn" {
 
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm-*"]
+    values = [var.ami_name_filter]
   }
 
   filter {
@@ -41,5 +41,5 @@ data "aws_ami" "amzn" {
     values = ["ebs"]
   }
 
-  owners = ["137112412989"] # Amazon
+  owners = [var.ami_owner_id]
 }
