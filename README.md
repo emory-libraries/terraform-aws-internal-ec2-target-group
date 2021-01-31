@@ -24,6 +24,8 @@ To rebuild the EC2 with the most recent AMI, destroy it manually in the AWS Cons
 | stack\_name | Name of the stack, helps delineate between different projects. | `string` | `"stack"` | no |
 | subnet\_id | Subnet id for the EC2 | `string` | n/a | yes |
 | tags | Map of tags, will be added to the common tags local | `map(string)` | `{}` | no |
+| target\_group\_health\_check | Path for the target group health check | `string` | `"/"` | no |
+| target\_group\_ssl | When set to true, the target group of the ec2 and associated health check will be via https, the default is false, which sends http to the target group | `bool` | `false` | no |
 | vpc\_cidr\_block | Cidr block for VPC ingress | `string` | n/a | yes |
 | vpc\_id | VPC that will be used by terraform, this VPC is called via data only, terraform will not attempt to manage the existence of the VPC | `string` | n/a | yes |
 

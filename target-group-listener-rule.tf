@@ -1,7 +1,7 @@
 resource "aws_alb_target_group" "target_group" {
   name     = "${local.namespace}-alb-${var.ec2_common_name}"
-  port     = "80"
-  protocol = "HTTP"
+  port     = var.target_group_ssl ? "443" : "80"
+  protocol = var.target_group_ssl ? "HTTPS" : "HTTP"
   vpc_id   = var.vpc_id
 
   stickiness {
@@ -14,8 +14,8 @@ resource "aws_alb_target_group" "target_group" {
     unhealthy_threshold = 10
     timeout             = 5
     interval            = 30
-    path                = "/"
-    port                = "80"
+    path                = var.target_group_health_check
+    port                = var.target_group_ssl ? "443" : "80"
   }
 }
 
@@ -40,5 +40,5 @@ resource "aws_lb_listener_rule" "alb_web_listener_rule" {
 resource "aws_alb_target_group_attachment" "alb_ec2" {
   target_group_arn = aws_alb_target_group.target_group.arn
   target_id        = aws_instance.ec2.id
-  port             = 80
+  port             = var.target_group_ssl ? 443 : 80
 }
