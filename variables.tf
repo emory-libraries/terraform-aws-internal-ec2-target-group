@@ -86,6 +86,16 @@ variable "stack_name" {
   description = "Name of the stack, helps delineate between different projects."
 }
 
+variable "target_group_health_check" {
+  default = "/"
+  description = "Path for the target group health check"
+}
+
+variable "target_group_ssl" {
+  default = false
+  description = "When set to true, the target group of the ec2 and associated health check will be via https, the default is false, which sends http to the target group"
+}
+
 variable "tags" {
   type    = map(string)
   default = {}
